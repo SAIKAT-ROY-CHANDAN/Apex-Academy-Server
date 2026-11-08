@@ -2,14 +2,17 @@
   "name": "apex-demo-server",
   "version": "1.0.0",
   "description": "Apex International College Management System API Server",
-  "main": "./dist/src/app.js",
+  "main": "./dist/src/server.js",
   "scripts": {
-    "dev": "tsx watch ./src/app.ts",
+    "dev": "tsx watch ./src/server.ts",
     "seed:demo": "tsx ./src/db/seedDemo.ts",
-    "build": "tsc",
-    "start": "node ./dist/src/app.js",
-    "start:prod": "node ./dist/src/app.js",
-    "start:dev": "tsx watch ./src/app.ts",
+    "build": "prisma generate && tsc",
+    "start": "node ./dist/src/server.js",
+    "start:prod": "node ./dist/src/server.js",
+    "start:dev": "tsx watch ./src/server.ts",
+    "deploy": "wrangler deploy",
+    "dev:worker": "wrangler dev",
+    "build:worker": "wrangler deploy --dry-run",
     "seed-permissions": "tsx ./src/db/seed.ts seed-permissions",
     "seed-super-admin": "tsx ./src/db/seedSuperAdmin.ts seed-super-admin",
     "seed-grade-scales": "tsx ./src/db/seedGradeScale.ts seed-grade-scales",
@@ -23,7 +26,9 @@
   "author": "Universal",
   "license": "ISC",
   "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
     "@prisma/adapter-mariadb": "^7.8.0",
+    "@prisma/adapter-neon": "^7.10.1",
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.8.0",
     "@types/pg": "^8.23.1",
@@ -38,9 +43,11 @@
     "nodemailer": "^9.0.1",
     "pg": "^8.23.1",
     "sharp": "^0.34.4",
+    "ws": "^8.22.1",
     "zod": "^3.25.30"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261108.1",
     "@eslint/js": "^9.27.0",
     "@types/cors": "^2.8.18",
     "@types/express": "^5.0.2",
@@ -48,12 +55,14 @@
     "@types/multer": "^2.0.0",
     "@types/node": "^22.19.21",
     "@types/nodemailer": "^8.0.1",
+    "@types/ws": "^8.18.2",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
     "eslint": "^9.27.0",
     "prettier": "^3.5.3",
     "prisma": "^7.8.0",
     "tsx": "^4.21.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "wrangler": "^4.158.0"
   }
 }

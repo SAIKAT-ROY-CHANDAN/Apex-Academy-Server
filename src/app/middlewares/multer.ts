@@ -4,6 +4,8 @@ import path from 'path';
 import fs from 'fs';
 import sharp from 'sharp';
 import { NextFunction } from 'express';
+import { uploadToCloudinary } from '../utils/cloudinary';
+import configs from '../configs';
 import {
   ACCEPTED_FILE_TYPES,
   ACCEPTED_IMAGE_TYPES,
@@ -121,7 +123,17 @@ export const processUploads = async (
 
     if (!files) return next();
 
+    const hasCloudinary = Boolean(
+      configs.cloudinary.cloudName &&
+        configs.cloudinary.apiKey &&
+        configs.cloudinary.apiSecret,
+    );
+    const isWorker = typeof (globalThis as any).WebSocketPair !== 'undefined';
+
     const processImage = async (file: Express.Multer.File) => {
+      if (hasCloudinary || isWorker) {
+        return await uploadToCloudinary(file.buffer);
+      }
       const timestamp = Date.now();
       const filename = `${file.fieldname}-${timestamp}-${Math.round(
         Math.random() * 1e9,
@@ -132,6 +144,9 @@ export const processUploads = async (
     };
 
     const saveRawFile = async (file: Express.Multer.File) => {
+      if (hasCloudinary || isWorker) {
+        return await uploadToCloudinary(file.buffer);
+      }
       const timestamp = Date.now();
       const filename = `${file.fieldname}-${timestamp}-${Math.round(
         Math.random() * 1e9,

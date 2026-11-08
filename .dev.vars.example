@@ -1,0 +1,32 @@
+# Database Connection (Neon Serverless PostgreSQL)
+DATABASE_URL="postgresql://<user>:<password>@<ep-pooler-id>.us-east-2.aws.neon.tech/<dbname>?sslmode=require"
+DIRECT_URL="postgresql://<user>:<password>@<ep-direct-id>.us-east-2.aws.neon.tech/<dbname>?sslmode=require"
+
+# JWT Secrets
+JWT_ACCESS_SECRET="your-jwt-access-secret"
+JWT_REFRESH_SECRET="your-jwt-refresh-secret"
+JWT_EXPIRATION="1d"
+ACCESS_TOKEN_EXPIRATION="1d"
+REFRESH_TOKEN_EXPIRATION="7d"
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME="your-cloud-name"
+CLOUDINARY_API_KEY="your-api-key"
+CLOUDINARY_API_SECRET="your-api-secret"
+
+# Frontend URL
+FRONTEND_URL="http://localhost:3000"
+
+# Admin Initial Seed Credentials
+ADMIN_NAME="Super Admin"
+ADMIN_EMAIL="admin@apexacademy.edu"
+ADMIN_PASSWORD="your-secure-password"
+
+# Optional Payment Gateway (bKash)
+BKASH_BASE_URL="https://tokenized.sandbox.bka.sh/v1.2.0-beta"
+BKASH_MERCHANT_NUMBER=""
+BKASH_APP_KEY=""
+BKASH_APP_SECRET=""
+BKASH_USERNAME=""
+BKASH_PASSWORD=""
+BKASH_CALLBACK_URL=""

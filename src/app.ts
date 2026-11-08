@@ -5,10 +5,22 @@ import cors from 'cors';
 import router from './app/routes';
 import { globalErrorHandler } from './app/middlewares/globalErrorHandler';
 import notFoundErrorHandler from './app/middlewares/notFoundErrorHandler';
-import { ensureUploadDirs } from './app/utils/ensureUploadDirs';
-import { seedDemo } from './db/seedDemo';
+import { prismaStorage, createPrismaClient } from './db/db.config';
 
 const app: Application = express();
+
+// Bind an isolated PrismaClient to each request in Cloudflare Workers / serverless environments
+app.use((req, res, next) => {
+  if (
+    typeof (globalThis as any).WebSocketPair !== 'undefined' ||
+    process.env.PER_REQUEST_DB === 'true'
+  ) {
+    const client = createPrismaClient();
+    prismaStorage.run(client, () => next());
+  } else {
+    next();
+  }
+});
 
 app.use(express.json());
 app.use(cors());
@@ -48,16 +60,4 @@ app.use(globalErrorHandler);
 // 404 Not Found middleware
 app.use(notFoundErrorHandler);
 
-ensureUploadDirs();
-
-const PORT = process.env.PORT || 5000;
-
-// Running the server
-app.listen(PORT, async () => {
-  try {
-    await seedDemo();
-  } catch (error) {
-    console.error('Initial auto-seed check failed:', error);
-  }
-  console.log(`Server is running on port ${PORT}`);
-});
+export default app;

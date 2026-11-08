@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "apex-demo-server",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-02-01",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "enable_nodejs_http_modules"
+  ],
+  "alias": {
+    "sharp": "./src/shims/sharp-shim.ts",
+    "@prisma-client": "./generated/prisma/client.ts"
+  },
+  "vars": {
+    "NODE_ENV": "production"
+  }
+}
