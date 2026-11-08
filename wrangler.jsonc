@@ -7,9 +7,11 @@
     "nodejs_compat",
     "enable_nodejs_http_modules"
   ],
+  "build": {
+    "command": "npx prisma generate"
+  },
   "alias": {
-    "sharp": "./src/shims/sharp-shim.ts",
-    "@prisma-client": "./generated/prisma/client.ts"
+    "sharp": "./src/shims/sharp-shim.ts"
   },
   "vars": {
     "NODE_ENV": "production"

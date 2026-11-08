@@ -5,7 +5,7 @@ import { PrismaNeon } from '@prisma/adapter-neon';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import { PrismaClient } from '@prisma-client';
+import { PrismaClient } from '../../generated/prisma/client';
 import ws from 'ws';
 
 // Route queries over standard HTTP fetch in edge / serverless environments to prevent dropped sockets

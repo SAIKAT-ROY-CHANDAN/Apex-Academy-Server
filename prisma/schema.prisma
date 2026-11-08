@@ -4,11 +4,6 @@ generator client {
   runtime  = "workerd"
 }
 
-generator nodeClient {
-  provider = "prisma-client"
-  output   = "../generated/prisma-node"
-  runtime  = "nodejs"
-}
 
 datasource db {
   provider = "postgresql"
