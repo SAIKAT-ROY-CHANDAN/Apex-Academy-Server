@@ -1,0 +1,9 @@
+node_modules
+.env
+dist
+prisma/migrations
+public/images
+public/files
+/generated/prisma
+.vscode/
+.DS_Store
