@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "apex-demo-server",
+  "name": "apex-academy-server",
   "main": "src/worker.ts",
   "compatibility_date": "2026-02-01",
   "compatibility_flags": [
